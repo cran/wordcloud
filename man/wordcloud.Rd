@@ -13,7 +13,7 @@
   Plot a word cloud
 }
 \usage{
-wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE,
+wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, random.color=FALSE, 
 		rot.per=.1,colors="black",use.r.layout=FALSE,...)
 }
 \arguments{
@@ -23,6 +23,7 @@ wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE,
   \item{min.freq}{words with frequency below min.freq will not be plotted}
   \item{max.words}{Maximum number of words to be plotted. least frequent terms dropped}
   \item{random.order}{plot words in random order. If false, they will be plotted in decreasing frequency}
+  \item{random.color}{choose colors randomly from the colors. If false, the color is chosen based on the frequency}
   \item{rot.per}{proportion words with 90 degree rotation}
   \item{colors}{color words from least to most frequent}
   \item{use.r.layout}{if false, then c++ code is used for collision detection, otherwise R is used}
@@ -50,30 +51,31 @@ if(require(tm)){
 	wordcloud(d$word,d$freq,c(8,.3),2)
 
 	#Now lets try it with frequent words plotted first
-
 	wordcloud(d$word,d$freq,c(8,.5),2,,FALSE,.1)
 
 	##### 			with colors 		#####
-
 	if(require(RColorBrewer)){
 
 		pal <- brewer.pal(9,"BuGn")
 		pal <- pal[-(1:4)]
-		wordcloud(d$word,d$freq,c(8,.3),2,,FALSE,.15,pal)
+		wordcloud(d$word,d$freq,c(8,.3),2,,FALSE,,.15,pal)
 
 
 		pal <- brewer.pal(6,"Dark2")
 		pal <- pal[-(1)]
-		wordcloud(d$word,d$freq,c(8,.3),2,,TRUE,.15,pal)
+		wordcloud(d$word,d$freq,c(8,.3),2,,TRUE,,.15,pal)
+		
+		#random colors
+		wordcloud(d$word,d$freq,c(8,.3),2,,TRUE,TRUE,.15,pal)
 	}
 	##### 			with font 			#####
 
-	wordcloud(d$word,d$freq,c(8,.3),2,,TRUE,.15,pal,
+	wordcloud(d$word,d$freq,c(8,.3),2,,TRUE,,.15,pal,
 		vfont=c("gothic english","plain"))
 
-	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,.15,pal,vfont=c("script","plain"))
+	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,,.15,pal,vfont=c("script","plain"))
 	
-	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,.15,pal,vfont=c("serif","plain"))
+	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,,.15,pal,vfont=c("serif","plain"))
 }
 
 

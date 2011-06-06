@@ -17,6 +17,8 @@
 #random.order: plot words in random order. If false, 
 #              they will be plotted in decreasing frequency
 #
+#random.color: plot words with a random color from the palette. if false, the color index is based on the frequency of the word
+#
 #rot.per: % of words with 90 degree rotation
 #
 #colors: color words from least to most frequent
@@ -25,8 +27,8 @@
 #
 #...: Additional parameters to be passed to text (and strheight,strwidth).
 #	  e.g. control font with vfont.
-wordcloud <- function(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE,
-		rot.per=.1,colors="black",use.r.layout=FALSE,...){
+wordcloud <- function(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE,random.color=FALSE,
+		rot.per=.1,colors="black",use.r.layout=FALSE,...) { 
 	tails <- "g|j|p|q|y"
 	last <- 1
 	nc<- length(colors)
@@ -60,7 +62,7 @@ wordcloud <- function(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.o
 		FALSE
 	}
 	
-	ord <- order(freq,decreasing=TRUE)
+	ord <- rank(-freq, ties.method = "random")
 	words <- words[ord<=max.words]
 	freq <- freq[ord<=max.words]
 	
@@ -104,8 +106,12 @@ wordcloud <- function(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.o
 			if(!overlap(x1-.5*wid,y1-.5*ht,wid,ht) &&
 					x1-.5*wid>0 && y1-.5*ht>0 &&
 					x1+.5*wid<1 && y1+.5*ht<1){
-				cc <- ceiling(nc*normedFreq[i])
-				cc <- colors[cc]
+        if (!random.color) {
+                cc <- ceiling(nc*normedFreq[i])
+                cc <- colors[cc]
+        } else {
+         cc <- colors[sample(1:nc,1)]
+        }
 				text(x1,y1,words[i],cex=size[i],offset=0,srt=rotWord*90,
 						col=cc,...)
 				#rect(x1-.5*wid,y1-.5*ht,x1+.5*wid,y1+.5*ht)

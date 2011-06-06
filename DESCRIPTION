@@ -1,7 +1,7 @@
 Package: wordcloud
 Type: Package
 Title: Word Clouds
-Version: 1.1
+Version: 1.2
 Date: 2011-06-06
 Author: Ian Fellows
 Maintainer: Ian Fellows <thefell@gmail.com>
@@ -11,6 +11,6 @@ LazyLoad: yes
 Depends: methods, Rcpp (>= 0.9.4)
 Suggests: tm, RColorBrewer
 LinkingTo: Rcpp
-Packaged: 2011-07-15 15:03:13 UTC; ianfellows
+Packaged: 2011-08-04 22:46:46 UTC; ianfellows
 Repository: CRAN
-Date/Publication: 2011-07-23 14:44:26
+Date/Publication: 2011-08-05 06:15:44
