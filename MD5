@@ -1,0 +1,8 @@
+de91a8270d788939696a8b6398b93c67 *DESCRIPTION
+b65d8a506ebfdbb3a907c34d97b1a977 *NAMESPACE
+28285a675680b1f4ebe27d526c2eb45d *NEWS
+6e9cc4e1b9d19f76f552bd861bc7a25c *R/cloud.R
+02a65072aa9c8e11ccad32e7fd56ab60 *man/wordcloud.Rd
+7d1edbf8c19a506fba0358e3164772dd *src/Makevars
+c8e35a7d7a206bf196cf4f391739684f *src/Makevars.win
+b8b9002c9bad2f48e7b61c814ddea5aa *src/layout.cpp

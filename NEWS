@@ -1,4 +1,5 @@
-
+1.4
+    o	change import to include
 1.2
     o	Added random word coloring option (thank you xavier dutoit for the patch) 
     o	Fixed max.words bug (thank you Manuel Eugster and Bettina Gruen for the patch) 

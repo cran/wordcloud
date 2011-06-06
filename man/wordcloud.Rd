@@ -18,7 +18,7 @@ wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, r
 }
 \arguments{
   \item{words}{the words}
-  \item{freq}{the words}
+  \item{freq}{their frequencies}
   \item{scale}{A vector of length 2 indicating the range of the size of the words. }
   \item{min.freq}{words with frequency below min.freq will not be plotted}
   \item{max.words}{Maximum number of words to be plotted. least frequent terms dropped}

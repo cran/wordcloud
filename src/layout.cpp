@@ -1,5 +1,5 @@
 
-#import "Rcpp.h"
+#include "Rcpp.h"
 
 /*
  * Detect if a box at position (x11,y11), with width sw11 and height sh11 overlaps
