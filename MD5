@@ -1,8 +1,12 @@
-de91a8270d788939696a8b6398b93c67 *DESCRIPTION
+c18b528b02c03a10fb016577c2420981 *DESCRIPTION
 b65d8a506ebfdbb3a907c34d97b1a977 *NAMESPACE
-28285a675680b1f4ebe27d526c2eb45d *NEWS
-6e9cc4e1b9d19f76f552bd861bc7a25c *R/cloud.R
-02a65072aa9c8e11ccad32e7fd56ab60 *man/wordcloud.Rd
+9a472257a7fff715618388005ae04bbc *NEWS
+0a3e55a728be8da418cba7b7701301c7 *R/cloud.R
+d91677351676140360876a088f11b755 *data/SOTU.RData
+b91c2eac2bea34439d3d93e07a60e688 *man/SOTU.Rd
+2022880916ae4ee34bcbeb49eb432a17 *man/commonality.cloud.Rd
+bd0dcd15be654eb50b20399f315d1ecc *man/comparison.cloud.Rd
+565b854fd2ef5b139fe5c9a3a22bfd75 *man/wordcloud.Rd
 7d1edbf8c19a506fba0358e3164772dd *src/Makevars
 c8e35a7d7a206bf196cf4f391739684f *src/Makevars.win
 b8b9002c9bad2f48e7b61c814ddea5aa *src/layout.cpp

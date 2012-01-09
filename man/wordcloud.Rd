@@ -14,7 +14,7 @@
 }
 \usage{
 wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, random.color=FALSE, 
-		rot.per=.1,colors="black",use.r.layout=FALSE,...)
+		rot.per=.1,colors="black",ordered.colors=FALSE,use.r.layout=FALSE,...)
 }
 \arguments{
   \item{words}{the words}
@@ -26,6 +26,7 @@ wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, r
   \item{random.color}{choose colors randomly from the colors. If false, the color is chosen based on the frequency}
   \item{rot.per}{proportion words with 90 degree rotation}
   \item{colors}{color words from least to most frequent}
+  \item{ordered.colors}{if true, then colors are assigned to words in order}
   \item{use.r.layout}{if false, then c++ code is used for collision detection, otherwise R is used}
   \item{...}{Additional parameters to be passed to text (and strheight,strwidth).}
 }
