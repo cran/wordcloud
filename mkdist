@@ -1,0 +1,5 @@
+mv .project .#project
+cd ..
+R CMD build wordcloud
+cd wordcloud
+mv .#project .project

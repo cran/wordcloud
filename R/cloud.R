@@ -34,13 +34,28 @@ wordcloud <- function(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.o
 	tails <- "g|j|p|q|y"
 	last <- 1
 	nc<- length(colors)
-
+	if(missing(freq)){
+		if(!require("tm"))
+			stop("freq must either be non-missing, or the tm package must be available")
+		if(is.character(words) || is.factor(words)){
+			corpus <- Corpus(VectorSource(words))
+			corpus <- tm_map(corpus, removePunctuation)
+			corpus <- tm_map(corpus, function(x)removeWords(x,stopwords()))
+		}else
+			corpus <- words
+		tdm <- TermDocumentMatrix(corpus)
+		freq <- slam::row_sums(tdm)
+		words <- names(freq)
+	}
     if (ordered.colors) {
         if (length(colors) != 1 && length(colors) != length(words)) {
             stop(paste("Length of colors does not match length of words",
                        "vector"))
         }
     }
+	
+	if(min.freq > max(freq))
+		min.freq <- 0
 
 	overlap <- function(x1, y1, sw1, sh1) {
 		if(!use.r.layout)
@@ -307,6 +322,80 @@ comparison.cloud <- function(term.matrix,scale=c(4,.5),max.words=300,random.orde
 }
 
 
+wordlayout <- function(x, y, words, cex=1, rotate90 = FALSE,
+		xlim=c(-Inf,Inf), ylim=c(-Inf,Inf), tstep=.1, rstep=.1, ...){
+	tails <- "g|j|p|q|y"
+	n <- length(words)
+	sdx <- sd(x,na.rm=TRUE)
+	sdy <- sd(y,na.rm=TRUE)
+	if(sdx==0)
+		sdx <- 1
+	if(sdy==0)
+		sdy <- 1
+	if(length(cex)==1)
+		cex <- rep(cex,n)
+	if(length(rotate90)==1)
+		rotate90 <- rep(rotate90,n)	
 
+	
+	boxes <- list()
+	for(i in 1:length(words)){
+		rotWord <- rotate90[i]
+		r <-0
+		theta <- runif(1,0,2*pi)
+		x1 <- xo <- x[i]
+		y1 <- yo <- y[i]
+		wid <- strwidth(words[i],cex=cex[i],...)
+		ht <- strheight(words[i],cex=cex[i],...)
+		#mind your ps and qs
+		if(grepl(tails,words[i]))
+			ht <- ht + ht*.2
+		if(rotWord){
+			tmp <- ht
+			ht <- wid
+			wid <- tmp	
+		}
+		isOverlaped <- TRUE
+		while(isOverlaped){
+			if(!.overlap(x1-.5*wid,y1-.5*ht,wid,ht,boxes) &&
+					x1-.5*wid>xlim[1] && y1-.5*ht>ylim[1] &&
+					x1+.5*wid<xlim[2] && y1+.5*ht<ylim[2]){
+				boxes[[length(boxes)+1]] <- c(x1-.5*wid,y1-.5*ht,wid,ht)
+				isOverlaped <- FALSE
+			}else{
+				theta <- theta+tstep
+				r <- r + rstep*tstep/(2*pi)
+				x1 <- xo+sdx*r*cos(theta)
+				y1 <- yo+sdy*r*sin(theta)
+			}
+		}
+	}
+	result <- do.call(rbind,boxes)
+	colnames(result) <- c("x","y","width","ht")
+	rownames(result) <- words
+	result
+}
+
+textplot <- function(x, y, words, cex=1, new=TRUE,show.lines=TRUE, ...){
+	if(new)
+		plot(x,y,type="n",...)
+	lay <- wordlayout(x,y,words,cex,...)
+	if(show.lines){
+		for(i in 1:length(x)){
+			xl <- lay[i,1]
+			yl <- lay[i,2]
+			w <- lay[i,3]
+			h <- lay[i,4]
+			if(x[i]<xl || x[i]>xl+w ||
+					y[i]<yl || y[i]>yl+h){
+				points(x[i],y[i],pch=16,col="red",cex=.5)
+				nx <- xl+.5*w
+				ny <- yl+.5*h
+				lines(c(x[i],nx),c(y[i],ny),col="grey")
+			}
+		}
+	}
+	text(lay[,1]+.5*lay[,3],lay[,2]+.5*lay[,4],words,cex=cex,...)
+}
 
 

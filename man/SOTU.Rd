@@ -10,5 +10,8 @@
 \description{
 Transcripts of the state of the union speeches. saved as a tm Corpus.
 }
+\author{
+Barack Obama
+}
 
 \usage{data(SOTU)}

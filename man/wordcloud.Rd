@@ -30,17 +30,30 @@ wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, r
   \item{use.r.layout}{if false, then c++ code is used for collision detection, otherwise R is used}
   \item{...}{Additional parameters to be passed to text (and strheight,strwidth).}
 }
+\details{
+If freq is missing, then words can either be a character vector, or Corpus. If it is a
+vector and freq is missing, standard stop words will be removed prior to plotting.
+}
 \value{
 nothing
- }
+}
 \seealso{
   \code{\link{text}}
 }
 \examples{
+
+wordcloud(c(letters, LETTERS, 0:9), seq(1, 1000, len = 62))
+
 if(require(tm)){
 	data(crude)
 	crude <- tm_map(crude, removePunctuation)
 	crude <- tm_map(crude, function(x)removeWords(x,stopwords()))
+	
+	##### 			from corpus 		#####
+	wordcloud(crude)
+	
+	
+	##### 		from frequency counts 	#####
 	tdm <- TermDocumentMatrix(crude)
 	m <- as.matrix(tdm)
 	v <- sort(rowSums(m),decreasing=TRUE)
@@ -77,6 +90,19 @@ if(require(tm)){
 	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,,.15,pal,vfont=c("script","plain"))
 	
 	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,,.15,pal,vfont=c("serif","plain"))
+	
+	##### 			from character 		#####
+	wordcloud(
+"Many years ago the great British explorer George Mallory, who 
+was to die on Mount Everest, was asked why did he want to climb 
+it. He said, \"Because it is there.\"
+
+Well, space is there, and we're going to climb it, and the 
+moon and the planets are there, and new hopes for knowledge 
+and peace are there. And, therefore, as we set sail we ask 
+God's blessing on the most hazardous and dangerous and greatest 
+adventure on which man has ever embarked.",
+	,random.order=FALSE)
 }
 
 
