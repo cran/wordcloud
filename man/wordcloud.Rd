@@ -13,8 +13,10 @@
   Plot a word cloud
 }
 \usage{
-wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, random.color=FALSE, 
-		rot.per=.1,colors="black",ordered.colors=FALSE,use.r.layout=FALSE,fixed.asp=TRUE, ...)
+wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,
+	random.order=TRUE, random.color=FALSE, rot.per=.1,
+	colors="black",ordered.colors=FALSE,use.r.layout=FALSE,
+	fixed.asp=TRUE, ...)
 }
 \arguments{
   \item{words}{the words}

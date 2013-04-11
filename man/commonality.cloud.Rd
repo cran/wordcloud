@@ -24,8 +24,7 @@ if(require(tm)){
 	data(SOTU)
 	corp <- SOTU
 	corp <- tm_map(corp, removePunctuation)
-	corp <- tm_map(corp, removePunctuation)
-	corp <- tm_map(corp, tolower)
+	corp <- tm_map(corp, content_transformer(tolower))
 	corp <- tm_map(corp, removeNumbers)
 	corp <- tm_map(corp, function(x)removeWords(x,stopwords()))
 

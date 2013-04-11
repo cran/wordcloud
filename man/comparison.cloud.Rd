@@ -7,8 +7,10 @@
   Plot a cloud comparing the frequencies of words across documents.
 }
 \usage{
-comparison.cloud(term.matrix,scale=c(4,.5),max.words=300,random.order=FALSE,
-		rot.per=.1,colors=brewer.pal(ncol(term.matrix),"Dark2"),use.r.layout=FALSE,title.size=3,...)
+comparison.cloud(term.matrix,scale=c(4,.5),max.words=300,
+	random.order=FALSE,rot.per=.1,
+	colors=brewer.pal(ncol(term.matrix),"Dark2"),
+	use.r.layout=FALSE,title.size=3,...)
 }
 \arguments{
   \item{term.matrix}{A term frequency matrix whose rows represent words and whose columns represent documents.}
@@ -35,8 +37,7 @@ if(require(tm)){
 	data(SOTU)
 	corp <- SOTU
 	corp <- tm_map(corp, removePunctuation)
-	corp <- tm_map(corp, removePunctuation)
-	corp <- tm_map(corp, tolower)
+	corp <- tm_map(corp, content_transformer(tolower))
 	corp <- tm_map(corp, removeNumbers)
 	corp <- tm_map(corp, function(x)removeWords(x,stopwords()))
 
