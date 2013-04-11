@@ -14,7 +14,7 @@
 }
 \usage{
 wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, random.color=FALSE, 
-		rot.per=.1,colors="black",ordered.colors=FALSE,use.r.layout=FALSE,...)
+		rot.per=.1,colors="black",ordered.colors=FALSE,use.r.layout=FALSE,fixed.asp=TRUE, ...)
 }
 \arguments{
   \item{words}{the words}
@@ -28,6 +28,7 @@ wordcloud(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE, r
   \item{colors}{color words from least to most frequent}
   \item{ordered.colors}{if true, then colors are assigned to words in order}
   \item{use.r.layout}{if false, then c++ code is used for collision detection, otherwise R is used}
+  \item{fixed.asp}{if TRUE, the aspect ratio is fixed. Variable aspect ratio only supported if rot.per==0}
   \item{...}{Additional parameters to be passed to text (and strheight,strwidth).}
 }
 \details{
@@ -45,6 +46,21 @@ nothing
 wordcloud(c(letters, LETTERS, 0:9), seq(1, 1000, len = 62))
 
 if(require(tm)){
+
+	##### 			from character 		#####
+	wordcloud(
+"Many years ago the great British explorer George Mallory, who 
+was to die on Mount Everest, was asked why did he want to climb 
+it. He said, \"Because it is there.\"
+
+Well, space is there, and we're going to climb it, and the 
+moon and the planets are there, and new hopes for knowledge 
+and peace are there. And, therefore, as we set sail we ask 
+God's blessing on the most hazardous and dangerous and greatest 
+adventure on which man has ever embarked.",
+	,random.order=FALSE)
+
+\dontrun{
 	data(crude)
 	crude <- tm_map(crude, removePunctuation)
 	crude <- tm_map(crude, function(x)removeWords(x,stopwords()))
@@ -90,19 +106,7 @@ if(require(tm)){
 	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,,.15,pal,vfont=c("script","plain"))
 	
 	wordcloud(d$word,d$freq,c(8,.3),2,100,TRUE,,.15,pal,vfont=c("serif","plain"))
-	
-	##### 			from character 		#####
-	wordcloud(
-"Many years ago the great British explorer George Mallory, who 
-was to die on Mount Everest, was asked why did he want to climb 
-it. He said, \"Because it is there.\"
-
-Well, space is there, and we're going to climb it, and the 
-moon and the planets are there, and new hopes for knowledge 
-and peace are there. And, therefore, as we set sail we ask 
-God's blessing on the most hazardous and dangerous and greatest 
-adventure on which man has ever embarked.",
-	,random.order=FALSE)
+}
 }
 
 

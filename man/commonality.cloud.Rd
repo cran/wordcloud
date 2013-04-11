@@ -32,8 +32,8 @@ if(require(tm)){
 	term.matrix <- TermDocumentMatrix(corp)
 	term.matrix <- as.matrix(term.matrix)
 	colnames(term.matrix) <- c("SOTU 2010","SOTU 2011")
-	comparison.cloud(term.matrix,max.words=300,random.order=FALSE)
-	commonality.cloud(term.matrix,random.order=FALSE)
+	comparison.cloud(term.matrix,max.words=40,random.order=FALSE)
+	commonality.cloud(term.matrix,max.words=40,random.order=FALSE)
 }
 
 }

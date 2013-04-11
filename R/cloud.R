@@ -1,36 +1,12 @@
-# TODO: Add comment
-# 
 # Author: ianfellows
 ###############################################################################
 
 
-#words: the words
-#
-#freq: their frequency
-#
-#scale: the range of the size of the words
-#
-#min.freq: words with frequency below min.freq will not be plotted
-#
-#max.words: Maximum number of words to be plotted. least frequent terms dropped
-#
-#random.order: plot words in random order. If false, 
-#              they will be plotted in decreasing frequency
-#
-#random.color: plot words with a random color from the palette. if false, the color index is based on the frequency of the word
-#
-#rot.per: % of words with 90 degree rotation
-#
-#colors: color words from least to most frequent
-#
-#ordered.colors: color each word in order instead of coloring by frequency
-#
-#use.r.layout: if false, then c++ is used for collision detection
-#
-#...: Additional parameters to be passed to text (and strheight,strwidth).
-#	  e.g. control font with vfont.
+
 wordcloud <- function(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.order=TRUE,random.color=FALSE,
-		rot.per=.1,colors="black",ordered.colors=FALSE,use.r.layout=FALSE,...) { 
+		rot.per=.1,colors="black",ordered.colors=FALSE,use.r.layout=FALSE,fixed.asp=TRUE,...) { 
+	if(!fixed.asp && rot.per>0)
+		stop("Variable aspect ratio not supported for rotated words. Set rot.per=0.")
 	tails <- "g|j|p|q|y"
 	last <- 1
 	nc<- length(colors)
@@ -110,7 +86,10 @@ wordcloud <- function(words,freq,scale=c(4,.5),min.freq=3,max.words=Inf,random.o
 	plot.new()
 	op <- par("mar")
 	par(mar=c(0,0,0,0))
-	plot.window(c(0,1),c(0,1),asp=1)
+	if(fixed.asp)
+		plot.window(c(0,1),c(0,1),asp=1)
+	else
+		plot.window(c(0,1),c(0,1))
 	normedFreq <- freq/max(freq)
 	size <- (scale[1]-scale[2])*normedFreq + scale[2]
 	boxes <- list()
